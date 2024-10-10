@@ -1,0 +1,27 @@
+wsl id -u # To get your UID
+
+And also, you have to change the auth_backend value in airflow.cfg:
+	
+	auth_backend = airflow.api.auth.backend.basic_auth
+	
+	deny_all will probably never let us log in
+	
+And also also, in docker_compose.yaml:
+	AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
+	
+	There is a typo on that line ("basic_authm"), which will never let us run the auth package.
+	
+	Thank Copilot for help, took me a while still to find those things. Not My Repo.
+	
+
+And now after running docker compose down and docker compose up init-airflow and docker compose up, I have the login screen
+
+
+Why the repo has issues, is beyond me but I am not probably able to update the repo (I could try, but I don't want to).
+
+
+
+Also, the maintainer of the repo should actually update his code to match updates. We have a ton of depracation warnings and issues that come from that
+
+I know how difficult it is to keep everything up-to-date, I'm doing the same at my work, but it should be done, so we won't study "dinosaurs".
+
